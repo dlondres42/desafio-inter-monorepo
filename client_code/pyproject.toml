@@ -1,0 +1,17 @@
+[project]
+name = "client-code"
+version = "0.1.0"
+description = "Notebook workspace for exercising the published dolores-lib"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+# Not a package: this project exists only to host notebooks that consume
+# dolores-lib as a published artifact. Nothing here is ever built or shipped.
+[tool.uv]
+package = false
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]
