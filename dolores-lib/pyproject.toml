@@ -1,14 +1,40 @@
 [project]
 name = "dolores-lib"
-version = "0.1.0"
 description = "Training and inference toolkit for the Iris dataset"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+dynamic = ["version"]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+root = ".."
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dolores"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.14",
+]
+
+[tool.ruff]
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["dolores"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

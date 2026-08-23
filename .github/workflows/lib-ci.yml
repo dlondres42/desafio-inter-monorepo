@@ -1,0 +1,43 @@
+name: lib-ci
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "dolores-lib/**"
+      - ".github/workflows/lib-ci.yml"
+  pull_request:
+    paths:
+      - "dolores-lib/**"
+      - ".github/workflows/lib-ci.yml"
+
+concurrency:
+  group: lib-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: dolores-lib
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          enable-cache: true
+
+      - run: uv sync
+
+      - run: uv run ruff check .
+
+      - run: uv run ruff format --check .
+
+      - run: uv run pytest
