@@ -26,7 +26,8 @@ desafio-inter-monorepo/
 │   ├── workflows/            # one workflow per component, each with its own path filter
 │   └── actions/              # composite actions shared across workflows (uv + cache setup)
 │
-├── data/                     # where the data is stored, namely: iris.csv as per required by the case
+├── dolores-lib/              # lib used to abstract common data science work
+├── data/                     # data used to test lib/api, it should not be packaged with the services 
 ├── inference-server/         # fastapi APP
 ├── client_code/              # consumer proof: notebooks exercising the published lib
 │
@@ -35,3 +36,5 @@ desafio-inter-monorepo/
 
 The `client_code` project is deliberately **not** a path dependency on `dolores-lib`. It installs the published artifact from test.pypi, which turns it into an end-to-end assertion that Stage 3 actually worked, if the wheel is
 broken, the notebook fails.
+
+
