@@ -1,24 +1,24 @@
-name: lib-ci
+name: server-ci
 
 on:
   push:
     branches:
       - main
     paths:
-      - "dolores-lib/**"
-      - ".github/workflows/lib-ci.yml"
+      - "inference-server/**"
+      - ".github/workflows/server-ci.yml"
   pull_request:
     paths:
-      - "dolores-lib/**"
-      - ".github/workflows/lib-ci.yml"
+      - "inference-server/**"
+      - ".github/workflows/server-ci.yml"
 
 concurrency:
-  group: lib-ci-${{ github.ref }}
+  group: server-ci-${{ github.ref }}
   cancel-in-progress: true
 
 defaults:
   run:
-    working-directory: dolores-lib
+    working-directory: inference-server
 
 jobs:
   quality:
@@ -27,8 +27,6 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - uses: astral-sh/setup-uv@v10.0.1
         with:

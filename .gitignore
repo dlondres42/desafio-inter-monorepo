@@ -23,3 +23,8 @@ wheels/
 artifacts/
 *.joblib
 *.pkl
+
+# MLflow local tracking store and registry
+mlruns/
+mlartifacts/
+mlflow.db

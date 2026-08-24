@@ -23,6 +23,7 @@ packages = ["src/dolores"]
 dev = [
     "pytest>=8.3",
     "ruff>=0.14",
+    "mypy>=1.14",
 ]
 
 [tool.ruff]
@@ -38,3 +39,7 @@ known-first-party = ["dolores"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+
+[tool.mypy]
+strict = true
+files = ["src"]

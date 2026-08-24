@@ -13,6 +13,7 @@ package = false
 dev = [
     "pytest>=8.3",
     "ruff>=0.14",
+    "mypy>=1.14",
 ]
 
 [tool.ruff]
@@ -29,3 +30,7 @@ known-first-party = ["app"]
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-ra"
+
+[tool.mypy]
+strict = true
+files = ["app"]
