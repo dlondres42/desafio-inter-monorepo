@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "FastAPI service serving the dolores-lib model"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "fastapi>=0.141.1",
+    "pydantic>=2.13.4",
+    "uvicorn[standard]>=0.52.4",
+]
 
 [tool.uv]
 package = false
@@ -14,6 +18,8 @@ dev = [
     "pytest>=8.3",
     "ruff>=0.14",
     "mypy>=1.14",
+    "fastapi-cli>=0.0.32",
+    "httpx2>=2.12.0",
 ]
 
 [tool.ruff]
@@ -34,3 +40,8 @@ addopts = "-ra"
 [tool.mypy]
 strict = true
 files = ["app"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+extraPaths = ["."]
