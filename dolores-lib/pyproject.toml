@@ -3,7 +3,11 @@ name = "dolores-lib"
 description = "Training and inference toolkit for the Iris dataset"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=2.1",
+    "scikit-learn>=1.6",
+]
 dynamic = ["version"]
 
 [build-system]
@@ -24,6 +28,7 @@ dev = [
     "pytest>=8.3",
     "ruff>=0.14",
     "mypy>=1.14",
+    "pandas-stubs>=2.2",
 ]
 
 [tool.ruff]
@@ -43,3 +48,11 @@ addopts = "-ra"
 [tool.mypy]
 strict = true
 files = ["src"]
+
+[[tool.mypy.overrides]]
+module = ["sklearn.*", "joblib.*", "mlflow.*"]
+ignore_missing_imports = true
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
