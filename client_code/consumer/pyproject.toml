@@ -1,0 +1,30 @@
+[project]
+name = "client-consumer"
+version = "0.1.0"
+description = "Notebook workspace consuming dolores-lib as a published wheel"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dolores-lib>=0.1.0",
+]
+
+[tool.uv]
+package = false
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+explicit = true
+
+[tool.uv.sources]
+dolores-lib = { index = "testpypi" }
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+    "jupyterlab>=4.3",
+]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"

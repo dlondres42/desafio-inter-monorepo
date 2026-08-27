@@ -24,3 +24,7 @@ dev = [
     "ipykernel>=7.3.0",
     "jupyterlab>=4.3",
 ]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
