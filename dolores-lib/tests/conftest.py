@@ -20,6 +20,7 @@ import pytest
 from sklearn.linear_model import LogisticRegression
 
 from dolores.data import Dataset
+from dolores.experiment import TrainingResult, train
 from dolores.inference import ESTIMATOR_NAME, MANIFEST_NAME, save_bundle
 
 CLASSES = ("alpha", "beta", "gamma")
@@ -61,6 +62,12 @@ def dataset(frame: pd.DataFrame) -> Dataset:
     return Dataset(frame=frame.copy(), target="label")
 
 
+@pytest.fixture
+def splits(dataset: Dataset) -> tuple[Dataset, Dataset]:
+    """Train/test datasets: 24 and 6 rows, two of each class in the test half."""
+    return dataset.split(test_size=0.2, seed=42)
+
+
 @pytest.fixture(scope="session")
 def fitted_estimator(frame: pd.DataFrame) -> LogisticRegression:
     """The smallest thing satisfying ``Predictor`` with the attributes a bundle needs.
@@ -84,6 +91,12 @@ def bundle_path(
         target="label",
         metrics={"f1": 1.0},
     )
+
+
+@pytest.fixture
+def training_result(splits: tuple[Dataset, Dataset]) -> TrainingResult:
+    train_ds, test_ds = splits
+    return train(LogisticRegression(max_iter=1000), train_ds, test_ds, name="logreg")
 
 
 @pytest.fixture

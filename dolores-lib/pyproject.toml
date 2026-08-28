@@ -12,6 +12,11 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+tracking = [
+    "mlflow>=3.0",
+]
+
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
@@ -31,6 +36,7 @@ dev = [
     "ruff>=0.14",
     "mypy>=1.14",
     "pandas-stubs>=2.2",
+    "mlflow>=3.0",
 ]
 
 [tool.ruff]
@@ -46,6 +52,9 @@ known-first-party = ["dolores"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+markers = [
+    "integration: exercises a real MLflow file store rather than a fake",
+]
 
 [tool.mypy]
 strict = true
