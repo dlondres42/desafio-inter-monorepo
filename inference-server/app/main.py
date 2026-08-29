@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 from .api.routers import health
 
@@ -7,6 +8,5 @@ app.include_router(health.router)
 
 
 @app.get("/")
-async def read_root() -> Response:
-    response = Response(content={"Hello": "World"})
-    return response
+async def read_root() -> JSONResponse:
+    return JSONResponse({"Hello": "World"})
