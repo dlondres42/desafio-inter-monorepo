@@ -8,10 +8,20 @@ dependencies = [
     "fastapi>=0.141.1",
     "pydantic>=2.13.4",
     "uvicorn[standard]>=0.52.4",
+    "dolores-lib==0.3.0",
 ]
 
 [tool.uv]
 package = false
+
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+explicit = true
+
+[tool.uv.sources]
+dolores-lib = { index = "testpypi" }
 
 [dependency-groups]
 dev = [
