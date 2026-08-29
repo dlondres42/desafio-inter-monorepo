@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-server
+  labels:
+    app: inference-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference-server
+  template:
+    metadata:
+      labels:
+        app: inference-server
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+      containers:
+        - name: api
+          image: inference-server:dev
+          imagePullPolicy: IfNotPresent  # the image is side-loaded by `kind load`
+          ports:
+            - containerPort: 8000
+          env:
+            - name: MODEL_PATH
+              value: /model/iris-classifier.zip
+          volumeMounts:
+            - name: model
+              mountPath: /model
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+      volumes:
+        - name: model
+          configMap:
+            name: iris-model
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference-server
+  labels:
+    app: inference-server
+spec:
+  selector:
+    app: inference-server
+  ports:
+    - port: 80
+      targetPort: 8000
