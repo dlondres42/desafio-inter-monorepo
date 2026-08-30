@@ -5,7 +5,9 @@ description = "Notebook workspace consuming dolores-lib as a published wheel"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "dolores-lib>=0.1.0",
+    "dolores-lib[tracking]==0.3.0",
+    "matplotlib>=3.11.1",
+    "seaborn>=0.13.2",
 ]
 
 [tool.uv]

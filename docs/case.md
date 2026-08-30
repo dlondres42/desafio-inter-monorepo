@@ -3,12 +3,6 @@
 Referência rápida extraída de `~/Downloads/desafio_inter_mlops.pdf`.
 Conteúdo mantido em português para não distorcer os requisitos originais.
 
-> [!WARNING]
-> **Prazo: 7 dias corridos a partir do recebimento do desafio.**
-> O PDF foi baixado em **21/08/2026**, o que coloca a entrega em **28/08/2026**
-> — confirme a data real de recebimento, essa é inferida do arquivo.
-
----
 
 ## Contexto
 
